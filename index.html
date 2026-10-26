@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Prompts prontos por nicho para criar fotos com IA para você ou para vender ensaios.">
+<title>Pack Fotos IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: estúdio fotográfico. Luz vermelha de laboratório como acento, cartões de nicho como "fotos" num varal de amostras. */
+:root{
+  --bg:#FAF8F5;
+  --surface:#FFFFFF;
+  --ink:#1A1412;
+  --muted:#6B605B;
+  --line:#E6DFD9;
+  --accent:#E8431F;
+  --accent-ink:#FFFFFF;
+  --accent-soft:#FDE6DF;
+  --gold:#C98A1A;
+  --ok:#1F8A5B;
+  --display:"Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#130F0E;--surface:#1D1715;--ink:#F5EEEA;--muted:#B3A59E;--line:#33292600;--line:#3A2F2B;
+  --accent:#FF5A36;--accent-ink:#1A0B06;--accent-soft:#3A1A12;--gold:#E8B04A;--ok:#4CC08A;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#130F0E;--surface:#1D1715;--ink:#F5EEEA;--muted:#B3A59E;--line:#3A2F2B;
+  --accent:#FF5A36;--accent-ink:#1A0B06;--accent-soft:#3A1A12;--gold:#E8B04A;--ok:#4CC08A;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);line-height:1.05;text-wrap:balance;margin:0;letter-spacing:-.02em}
+p{margin:0}
+a{color:inherit}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:700 17px/1 var(--body);text-decoration:none;
+  background:var(--accent);color:var(--accent-ink);padding:18px 26px;border-radius:999px;border:0;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 8px 24px -10px var(--accent)}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible,.pick:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+
+/* topo */
+.top{padding-block:18px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{font-family:var(--display);font-weight:800;font-size:20px;display:flex;align-items:center;gap:8px}
+.logo i{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.top a{font-weight:600;font-size:15px;text-decoration:none;border-bottom:2px solid var(--accent)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-block:40px 64px}
+.hero > *{min-width:0}
+.hero h1{font-size:clamp(38px,6vw,68px);font-weight:800;margin-block:14px 20px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero h1 .or{font-family:var(--body);font-weight:500;font-size:.5em;color:var(--muted);display:block;margin-block:6px;letter-spacing:0}
+.lead{font-size:19px;color:var(--muted);max-width:52ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:28px}
+.trust{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:14px;color:var(--muted)}
+.trust span::before{content:"✓ ";color:var(--ok);font-weight:700}
+
+/* colagem de fotos ilustrativas */
+.collage{position:relative;aspect-ratio:1/1.05;max-width:100%}
+.ph{position:absolute;border-radius:14px;overflow:hidden;box-shadow:0 20px 40px -18px rgba(0,0,0,.45);background:var(--g);border:6px solid var(--surface)}
+.ph svg{position:absolute;inset:auto 0 0 0;width:100%;height:78%;fill:rgba(0,0,0,.28)}
+.ph img,.card .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.ph b{position:absolute;z-index:1;left:10px;top:10px;font:600 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.85);color:#1A1412;padding:6px 8px;border-radius:6px}
+.ph.a{--g:linear-gradient(160deg,#F9C5D1,#F28CA8 55%,#E8431F);width:54%;aspect-ratio:4/5;left:0;top:6%;transform:rotate(-4deg)}
+.ph.b{--g:linear-gradient(160deg,#1E2A44,#3B5B8C 60%,#C9A55A);width:46%;aspect-ratio:4/5;right:0;top:0;transform:rotate(3deg)}
+.ph.c{--g:linear-gradient(160deg,#F4E3C7,#D9B07A 60%,#8C5A2B);width:44%;aspect-ratio:1;right:6%;bottom:0;transform:rotate(-2deg)}
+.prompt{position:absolute;left:4%;bottom:2%;width:56%;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px;font:12px/1.5 var(--mono);box-shadow:0 18px 40px -20px rgba(0,0,0,.5)}
+.prompt small{display:block;color:var(--accent);font-weight:600;margin-bottom:6px;letter-spacing:.08em}
+
+section{padding-block:72px}
+.sec-head{max-width:720px;margin-bottom:40px}
+.sec-head h2{font-size:clamp(30px,4.2vw,46px);font-weight:800;margin-top:10px}
+.sec-head p{color:var(--muted);margin-top:14px;font-size:18px}
+
+/* como funciona */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:s}
+.step{padding:26px;border-top:3px solid var(--ink)}
+.step::before{counter-increment:s;content:"Passo " counter(s);font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.step h3{font-size:22px;margin-block:10px 8px}
+.step p{color:var(--muted)}
+
+/* duas formas */
+.band{background:var(--ink);color:var(--bg)}
+.band .sec-head p{color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.ways{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.way{border:1px solid color-mix(in srgb,var(--bg) 20%,transparent);border-radius:20px;padding:30px}
+.way h3{font-size:28px;margin-bottom:12px}
+.way ul{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.way li{padding-left:22px;position:relative}
+.way li::before{content:"";position:absolute;left:0;top:.6em;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.calc{margin-top:22px;font-family:var(--mono);font-size:14px;background:color-mix(in srgb,var(--bg) 8%,transparent);border-radius:12px;padding:16px;display:grid;gap:6px}
+.calc div{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
+.calc .tot{border-top:1px dashed color-mix(in srgb,var(--bg) 35%,transparent);padding-top:8px;font-weight:600;color:var(--accent)}
+
+/* pacotes */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.card .thumb{aspect-ratio:4/5;overflow:hidden;background:var(--g);position:relative}
+.card .thumb svg{position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:82%;fill:rgba(0,0,0,.25)}
+.card .body{padding:18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{font-size:21px}
+.card p{font-size:14.5px;color:var(--muted);flex:1}
+.price{font-family:var(--display);font-weight:800;font-size:30px;margin-top:8px;font-variant-numeric:tabular-nums}
+.price small{font-family:var(--body);font-size:14px;font-weight:600;color:var(--muted)}
+.pick{margin-top:10px;display:block;text-align:center;text-decoration:none;font-weight:700;padding:13px;border-radius:12px;background:var(--accent-soft);color:var(--ink);transition:background .15s}
+.pick:hover{background:var(--accent);color:var(--accent-ink)}
+.card.hot{border:2px solid var(--accent)}
+.card.hot .pick{background:var(--accent);color:var(--accent-ink)}
+.tag{position:absolute;top:12px;left:12px;z-index:1;background:var(--accent);color:var(--accent-ink);font:700 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;border-radius:999px}
+
+.combo{margin-top:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:0;border-radius:24px;overflow:hidden;border:2px solid var(--ink);background:var(--surface)}
+.combo > *{min-width:0}
+.combo .l{padding:34px}
+.combo h3{font-size:clamp(28px,3.6vw,40px);margin-block:10px 12px}
+.combo .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.combo .chips span{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--line)}
+.combo .r{background:var(--ink);color:var(--bg);padding:34px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.combo .from{text-decoration:line-through;opacity:.65;font-variant-numeric:tabular-nums}
+.combo .big{font-family:var(--display);font-weight:800;font-size:clamp(48px,6vw,68px);line-height:1;font-variant-numeric:tabular-nums}
+.combo .save{font:600 13px var(--mono);color:var(--gold);letter-spacing:.06em;text-transform:uppercase}
+.combo .btn{margin-top:14px}
+
+/* entregáveis */
+.gets{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 40px;max-width:900px}
+.gets div{display:flex;gap:14px;align-items:flex-start;padding-block:14px;border-bottom:1px solid var(--line)}
+.gets b{font-family:var(--mono);color:var(--accent);font-size:13px;padding-top:4px;white-space:nowrap}
+
+/* garantia + faq */
+.guarantee{display:flex;gap:28px;align-items:center;background:var(--accent-soft);border-radius:24px;padding:32px}
+.seal{flex:none;width:110px;height:110px;border-radius:50%;border:3px dashed var(--accent);display:grid;place-items:center;text-align:center;font-family:var(--display);font-weight:800;line-height:1;color:var(--accent)}
+.seal span{font-size:40px;display:block}
+.guarantee h3{font-size:26px;margin-bottom:8px}
+.bonus{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;border:2px dashed var(--gold);border-radius:24px;padding:32px;background:var(--surface)}
+.bonus > *{min-width:0}
+.bonus .eyebrow{color:var(--gold)}
+.bonus h3{font-size:clamp(26px,3.4vw,36px);margin-block:10px 12px}
+.bonus p{color:var(--muted)}
+.bonus ul{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.bonus li{padding-left:24px;position:relative}
+.bonus li::before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:700}
+.flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;font-weight:700;text-align:center}
+.flow span,.flow strong{padding:14px 16px;border-radius:14px;background:var(--accent-soft)}
+.flow strong{background:var(--accent);color:var(--accent-ink)}
+.flow i{font-style:normal;font-family:var(--mono);font-size:22px;color:var(--gold)}
+.bonus-note{margin-top:14px;font-size:14px;text-align:center}
+.faq{max-width:780px;display:grid;gap:10px}
+.faq details{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:4px 20px}
+.faq summary{cursor:pointer;font-weight:700;padding-block:16px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--accent);font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq details p{color:var(--muted);padding-bottom:16px}
+
+.final{text-align:center;padding-block:80px}
+.final h2{font-size:clamp(32px,5vw,54px);font-weight:800;max-width:18ch;margin:0 auto 22px}
+footer{border-top:1px solid var(--line);padding-block:28px 40px;font-size:13px;color:var(--muted)}
+footer p+p{margin-top:8px}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:12px;font-size:14px;max-width:calc(100% - 32px);z-index:20}
+
+@media (max-width:960px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:820px){
+  .hero{grid-template-columns:1fr;gap:28px;padding-block:20px 40px}
+  .collage{max-width:440px;width:100%;margin:0 auto}
+  .steps,.ways,.combo,.gets,.bonus{grid-template-columns:1fr}
+  section{padding-block:52px}
+  .guarantee{flex-direction:column;text-align:center}
+}
+@media (max-width:440px){
+  .grid{grid-template-columns:1fr}
+  .prompt{width:70%;font-size:11px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="person" viewBox="0 0 100 100"><circle cx="50" cy="34" r="17"/><path d="M14 100c0-24 16-40 36-40s36 16 36 40z"/></symbol>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <div class="logo"><i></i>Pack Fotos IA</div>
+    <a href="#pacotes">Ver pacotes</a>
+  </header>
+
+  <div class="hero">
+    <div>
+      <span class="eyebrow">Prompts prontos por nicho</span>
+      <h1>Tenha <em>fotos de IA</em> para você <span class="or">ou</span> ganhe até <em>R$5.000</em> com renda extra</h1>
+      <p class="lead">Copie o prompt, cole no ChatGPT ou no Gemini com a sua foto e receba um ensaio com cara de estúdio em minutos. Use nas suas redes ou venda ensaios para clientes.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#pacotes">Escolher meu nicho</a>
+        <span style="color:var(--muted);font-size:15px">a partir de <strong style="color:var(--ink)">R$12,90</strong></span>
+      </div>
+      <div class="trust"><span>Acesso imediato</span><span>Sem precisar saber editar</span><span>Garantia de 7 dias</span></div>
+    </div>
+    <div class="collage" aria-label="Exemplos ilustrativos de fotos geradas com IA">
+      <div class="ph a"><img src="img/aniversario.jpg" alt="Mulher segurando velas de 40 anos com balões dourados"><b>Aniversário</b></div>
+      <div class="ph b"><img src="img/profissional.jpg" alt="Mulher de terno claro em retrato profissional de estúdio"><b>Profissional</b></div>
+      <div class="ph c"><img src="img/gestante.jpg" alt="Gestante de vestido branco à beira de um lago" style="object-position:center 35%"><b>Gestante</b></div>
+      <div class="prompt"><small>PROMPT · ANIVERSÁRIO</small>Retrato editorial da pessoa da foto enviada, segurando balões dourados, fundo rosa pastel, luz suave de estúdio, lente 85mm, ultra realista, 4:5.</div>
+    </div>
+  </div>
+</div>
+
+<section id="como">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Três passos e o ensaio está pronto</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Escolha o nicho</h3><p>Aniversário, formatura, gestante, casamento e outros. Cada pacote traz prompts testados para aquele tema.</p></div>
+      <div class="step"><h3>Copie e cole</h3><p>Envie a sua foto (ou a do cliente) para a IA e cole o prompt. Funciona no ChatGPT e no Gemini, inclusive nas versões gratuitas.</p></div>
+      <div class="step"><h3>Baixe e use</h3><p>Poste nas redes, imprima ou entregue ao cliente. Ajuste cor, roupa e cenário trocando poucas palavras.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Duas formas de usar</span>
+      <h2>Para você ou para faturar</h2>
+      <p>O mesmo pacote serve para os dois. Muita gente compra para si e descobre que dá para vender.</p>
+    </div>
+    <div class="ways">
+      <div class="way">
+        <h3>Para você</h3>
+        <p>Fotos de aniversário, formatura ou perfil profissional sem pagar estúdio.</p>
+        <ul>
+          <li>Ensaio temático sem sair de casa</li>
+          <li>Foto nova para Instagram, WhatsApp e LinkedIn</li>
+          <li>Presente diferente para família e amigos</li>
+        </ul>
+      </div>
+      <div class="way">
+        <h3>Para renda extra</h3>
+        <p>Ofereça ensaios com IA para clientes da sua cidade ou pelas redes.</p>
+        <div class="calc" aria-label="Simulação de ganhos">
+          <div><span>Ensaio cobrado</span><span>R$50</span></div>
+          <div><span>Clientes por semana</span><span>25</span></div>
+          <div><span>Semanas no mês</span><span>4</span></div>
+          <div class="tot"><span>Potencial no mês</span><span>R$5.000</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pacotes">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Escolha o seu nicho</span>
+      <h2>Pague só pelo tema que você quer</h2>
+      <p>Pagamento único, acesso imediato e vitalício. Quer todos? O combo sai mais barato que três pacotes avulsos.</p>
+    </div>
+    <div class="grid" id="grid"></div>
+
+    <div class="combo">
+      <div class="l">
+        <span class="eyebrow">Combo completo</span>
+        <h3>Todos os nichos em um só acesso</h3>
+        <p style="color:var(--muted)">Os 8 pacotes de prompts, mais o guia de como vender ensaios com IA e a tabela de preços para cobrar dos clientes.</p>
+        <div class="chips" id="chips"></div>
+      </div>
+      <div class="r">
+        <span class="from" id="fromPrice">de R$129,20</span>
+        <span class="big">R$79,90</span>
+        <span class="save" id="save">Economia de R$49,30</span>
+        <a class="btn" data-key="combo" href="#">Quero o combo completo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">O que você recebe</span>
+      <h2>Tudo pronto para copiar e usar</h2>
+    </div>
+    <div class="gets">
+      <div><b>01</b><span>Prompts testados do nicho escolhido, com variações de cenário, roupa e iluminação</span></div>
+      <div><b>02</b><span>Passo a passo para usar no ChatGPT e no Gemini, pelo celular</span></div>
+      <div><b>03</b><span>Dicas de foto de referência para o rosto sair fiel</span></div>
+      <div><b>04</b><span>No combo: guia de vendas, modelos de mensagem e tabela de preços</span></div>
+      <div><b>Bônus</b><span>Prompt Mestre para recriar qualquer foto de referência, liberado após 7 dias</span></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="guarantee">
+      <div class="seal"><div><span>7</span>dias</div></div>
+      <div>
+        <h3>Garantia incondicional de 7 dias</h3>
+        <p>Se não gostar, peça o reembolso dentro de 7 dias pela própria plataforma e receba 100% do valor de volta. Sem perguntas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="bonus">
+      <div class="bonus-l">
+        <span class="eyebrow">Bônus liberado no 8º dia</span>
+        <h3>Recrie qualquer foto com o seu modelo</h3>
+        <p>Viu uma foto linda no Pinterest ou no Instagram que não está no pacote? Com o Prompt Mestre você envia essa imagem de referência para a IA e ela monta o prompt para gerar a mesma cena com o seu rosto ou com o rosto do seu cliente.</p>
+        <ul>
+          <li>Funciona com qualquer foto de referência, de qualquer tema</li>
+          <li>Mantém cenário, pose, roupa e luz, trocando só a pessoa</li>
+          <li>Ideal para atender pedidos de clientes fora dos nichos</li>
+        </ul>
+      </div>
+      <div class="bonus-r" aria-label="Como funciona o bônus">
+        <div class="flow"><span>Foto de referência</span><i>+</i><span>Sua foto</span><i>=</i><strong>Mesma cena com você</strong></div>
+        <p class="bonus-note">Liberado automaticamente na sua área de membros 7 dias depois da compra.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Dúvidas frequentes</span><h2>Perguntas comuns</h2></div>
+    <div class="faq">
+      <details><summary>Preciso pagar alguma IA?</summary><p>Não é obrigatório. Os prompts funcionam nas versões gratuitas do ChatGPT e do Gemini. As versões pagas geram mais imagens por dia.</p></details>
+      <details><summary>Como recebo o acesso?</summary><p>Assim que o pagamento é aprovado, você recebe o acesso por e-mail. No Pix e no cartão é na hora.</p></details>
+      <details><summary>Funciona pelo celular?</summary><p>Sim. Todo o processo foi pensado para ser feito pelo celular.</p></details>
+      <details><summary>Posso vender as fotos que eu gerar?</summary><p>Pode. Você pode cobrar pelos ensaios que criar para clientes. Só não é permitido revender os prompts do pacote.</p></details>
+      <details><summary>Por que o bônus só chega depois de 7 dias?</summary><p>Ele é liberado depois do prazo de garantia, como presente para quem segue com a gente. Chega sozinho na sua área de membros, sem precisar pedir.</p></details>
+      <details><summary>Posso comprar um nicho e depois o combo?</summary><p>Pode, mas sai mais barato escolher o combo de uma vez se você quer mais de três temas.</p></details>
+    </div>
+  </div>
+</section>
+
+<div class="wrap final">
+  <h2>Sua próxima foto favorita custa menos que um lanche</h2>
+  <a class="btn" href="#pacotes">Escolher meu nicho agora</a>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Os valores de ganhos são uma simulação e não uma promessa. O resultado depende da sua dedicação, preço cobrado e número de clientes.</p>
+    <p>As imagens desta página são ilustrações. ChatGPT e Gemini são marcas de seus respectivos donos e não têm relação com este produto.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ===== COLE AQUI OS LINKS DE CHECKOUT DA KIWIFY ===== */
+const CHECKOUT = {
+  aniversario: "",
+  natal: "",
+  infantil: "",
+  gestante: "",
+  formatura: "",
+  casal: "",
+  profissional: "",
+  casamento: "",
+  combo: ""
+};
+
+const NICHOS = [
+  {key:"casal", nome:"Casal e Namorados", preco:12.90, desc:"Ensaios românticos, pré-wedding e Dia dos Namorados.", g:"linear-gradient(160deg,#F6D3C8,#E07A6A 60%,#7A2E3A)", img:"img/casal.jpg"},
+  {key:"infantil", nome:"Infantil e Smash the Cake", preco:12.90, desc:"Mesversário, smash the cake e temas de desenho.", g:"linear-gradient(160deg,#CFE8F6,#8EC5E8 60%,#F4B860)", img:"img/infantil.jpg"},
+  {key:"gestante", nome:"Gestante", preco:14.90, desc:"Ensaios delicados de gravidez, com tons suaves e natureza.", g:"linear-gradient(160deg,#F3E7DA,#E3C3B0 60%,#B98A7A)", img:"img/gestante.jpg"},
+  {key:"formatura", nome:"Formatura", preco:14.90, desc:"Beca, capelo e retratos de conquista com fundo de estúdio.", g:"linear-gradient(160deg,#1E2A44,#3B5B8C 60%,#C9A55A)", img:"img/formatura.jpg"},
+  {key:"profissional", nome:"Profissional e LinkedIn", preco:17.90, desc:"Foto de perfil corporativa, terno, blazer e escritório.", g:"linear-gradient(160deg,#E4E6EA,#9AA3B0 60%,#2E3A4A)", img:"img/profissional.jpg"},
+  {key:"casamento", nome:"Casamento", preco:17.90, desc:"Noiva, noivo, vestido e cenários de cerimônia.", g:"linear-gradient(160deg,#FBF6EE,#E8DCC8 60%,#B9A27A)", img:"img/casamento.jpg", pos:"center 35%"},
+  {key:"natal", nome:"Natal", preco:17.90, desc:"Árvore iluminada, gorro, pijama em família e clima de ceia.", g:"linear-gradient(160deg,#F3D9C4,#B8352A 60%,#1F4D36)", tag:"Mais pedido", img:"img/natal.jpg", pos:"center 80%"},
+  {key:"aniversario", nome:"Aniversário", preco:19.90, desc:"Balões, bolo e cenários de festa para todas as idades.", g:"linear-gradient(160deg,#F9C5D1,#F28CA8 60%,#E8431F)", tag:"Mais vendido", img:"img/aniversario.jpg"}
+];
+const COMBO = 79.90;
+
+const brl = v => "R$" + v.toFixed(2).replace(".", ",");
+const grid = document.getElementById("grid");
+grid.innerHTML = NICHOS.map(n => `
+  <article class="card${n.tag ? " hot" : ""}">
+    ${n.tag ? `<span class="tag">${n.tag}</span>` : ""}
+    <div class="thumb" style="--g:${n.g}">${n.img ? `<img src="${n.img}" alt="Exemplo de foto do nicho ${n.nome}" loading="lazy"${n.pos ? ` style="object-position:${n.pos}"` : ""}>` : '<svg viewBox="0 0 100 100"><use href="#person"/></svg>'}</div>
+    <div class="body">
+      <h3>${n.nome}</h3>
+      <p>${n.desc}</p>
+      <div class="price">${brl(n.preco)} <small>pagamento único</small></div>
+      <a class="pick" data-key="${n.key}" href="#">Quero este pacote</a>
+    </div>
+  </article>`).join("");
+
+document.getElementById("chips").innerHTML = NICHOS.map(n => `<span>${n.nome}</span>`).join("");
+const soma = NICHOS.reduce((s, n) => s + n.preco, 0);
+document.getElementById("fromPrice").textContent = "de " + brl(soma);
+document.getElementById("save").textContent = "Economia de " + brl(soma - COMBO);
+
+const toast = document.getElementById("toast");
+let t;
+document.querySelectorAll("[data-key]").forEach(a => {
+  const url = CHECKOUT[a.dataset.key];
+  if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; return; }
+  a.addEventListener("click", e => {
+    e.preventDefault();
+    toast.textContent = "Checkout em configuração. O link da Kiwify entra aqui.";
+    toast.hidden = false; clearTimeout(t); t = setTimeout(() => toast.hidden = true, 2600);
+  });
+});
+</script>
+</body>
+</html>
