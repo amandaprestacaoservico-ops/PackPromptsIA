@@ -54,6 +54,11 @@ a{color:inherit}
 /* hero */
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-block:40px 64px}
 .hero > *{min-width:0}
+.bfselo{display:flex;width:fit-content;flex-direction:column;align-items:flex-start;background:#0B0B0B;border:3px solid #D7141A;border-radius:14px;padding:12px 18px;margin-bottom:18px;transform:rotate(-2deg);box-shadow:6px 6px 0 #D7141A}
+.bfselo[hidden]{display:none}
+.bfselo span{font:800 clamp(26px,5vw,40px)/1 var(--display);color:#fff;letter-spacing:-.01em}
+.bfselo b{font:800 clamp(26px,5vw,40px)/1 var(--display);color:#D7141A;background:#FFE14D;padding:2px 8px;margin-top:4px;border-radius:6px}
+.bfselo small{font:600 12px/1 var(--mono);color:#FFE14D;letter-spacing:.06em;text-transform:uppercase;margin-top:8px}
 .hero h1{font-size:clamp(38px,6vw,68px);font-weight:800;margin-block:14px 20px}
 .hero h1 em{font-style:normal;color:var(--accent)}
 .hero h1 .or{font-family:var(--body);font-weight:500;font-size:.5em;color:var(--muted);display:block;margin-block:6px;letter-spacing:0}
@@ -204,6 +209,7 @@ html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!i
 
   <div class="hero">
     <div>
+      <div class="bfselo" id="bfselo" hidden><span>BLACK FRIDAY</span><b>ANTECIPADA</b><small>preços sobem em 01/12</small></div>
       <span class="eyebrow">Prompts prontos por nicho</span>
       <h1>Tenha <em>fotos de IA</em> para você <span class="or">ou</span> ganhe até <em>R$5.000</em> com renda extra</h1>
       <p class="lead">Copie o prompt, cole no ChatGPT ou no Gemini com a sua foto e receba um ensaio com cara de estúdio em minutos. Use nas suas redes ou venda ensaios para clientes.</p>
@@ -430,6 +436,7 @@ document.getElementById("aPartir").textContent = brl(Math.min(...NICHOS.map(n =>
 if (emBF) {
   const bar = document.getElementById("bfbar"), cd = document.getElementById("cd");
   bar.hidden = false;
+  document.getElementById("bfselo").hidden = false;
   const tick = () => {
     const ms = BF.ate - new Date();
     if (ms <= 0) { location.reload(); return; }
