@@ -111,7 +111,7 @@ section{padding-block:72px}
 .bfbar{background:#0B0B0B;color:#fff;text-align:center;padding:10px 16px;font:600 14px/1.4 var(--body)}
 .bfbar b{color:#FFC93C;letter-spacing:.04em}
 .bfbar .cd{font:700 14px var(--mono);font-variant-numeric:tabular-nums;color:#FFC93C;white-space:nowrap}
-.old{display:block;font-family:var(--body);font-size:14px;font-weight:600;color:var(--muted);text-decoration:line-through}
+.old{display:block;font-family:var(--body);font-size:14px;font-weight:600;color:var(--muted)}.old s{font-size:16px}
 .off{display:inline-block;background:#0B0B0B;color:#FFC93C;font:700 11px/1 var(--mono);letter-spacing:.06em;padding:5px 7px;border-radius:6px;margin-left:6px;vertical-align:middle}
 .depois{margin:6px 0 0;font:600 13px/1.4 var(--mono);color:var(--accent);letter-spacing:.02em}.depois b{font-size:15px}
 .price small{font-family:var(--body);font-size:14px;font-weight:600;color:var(--muted)}
@@ -412,8 +412,8 @@ grid.innerHTML = NICHOS.map(n => `
     <div class="body">
       <h3>${n.nome}</h3>
       <p>${n.desc}</p>
+      ${emBF ? `<span class="old"><s>${brl(DEPOIS[n.preco])}</s> a partir de 01/12</span>` : ""}
       <div class="price">${brl(n.preco)}${emBF ? `<span class="off">BLACK FRIDAY</span>` : ""} <small>pagamento único</small></div>
-      ${emBF ? `<p class="depois">A partir de 01/12: <b>${brl(DEPOIS[n.preco])}</b></p>` : ""}
       <a class="pick" data-key="${n.key}" href="#">Quero este pacote</a>
     </div>
   </article>`).join("");
