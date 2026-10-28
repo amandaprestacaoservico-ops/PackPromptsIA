@@ -413,7 +413,7 @@ grid.innerHTML = NICHOS.map(n => `
       <h3>${n.nome}</h3>
       <p>${n.desc}</p>
       ${emBF ? `<span class="old"><s>${brl(DEPOIS[n.preco])}</s> a partir de 01/12</span>` : ""}
-      <div class="price">${brl(n.preco)}${emBF ? `<span class="off">BLACK FRIDAY</span>` : ""} <small>pagamento único</small></div>
+      <div class="price">${brl(n.preco)}${emBF ? `<span class="off">BLACK ANTECIPADA</span>` : ""} <small>pagamento único</small></div>
       <a class="pick" data-key="${n.key}" href="#">Quero este pacote</a>
     </div>
   </article>`).join("");
