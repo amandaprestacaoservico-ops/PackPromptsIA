@@ -113,7 +113,7 @@ section{padding-block:72px}
 .bfbar .cd{font:700 14px var(--mono);font-variant-numeric:tabular-nums;color:#FFC93C;white-space:nowrap}
 .old{display:block;font-family:var(--body);font-size:14px;font-weight:600;color:var(--muted);text-decoration:line-through}
 .off{display:inline-block;background:#0B0B0B;color:#FFC93C;font:700 11px/1 var(--mono);letter-spacing:.06em;padding:5px 7px;border-radius:6px;margin-left:6px;vertical-align:middle}
-.depois{margin:6px 0 0;font:600 12px/1.4 var(--mono);color:var(--accent);letter-spacing:.02em}
+.depois{margin:6px 0 0;font:600 13px/1.4 var(--mono);color:var(--accent);letter-spacing:.02em}.depois b{font-size:15px}
 .price small{font-family:var(--body);font-size:14px;font-weight:600;color:var(--muted)}
 .pick{margin-top:10px;display:block;text-align:center;text-decoration:none;font-weight:700;padding:13px;border-radius:12px;background:var(--accent-soft);color:var(--ink);transition:background .15s}
 .pick:hover{background:var(--accent);color:var(--accent-ink)}
@@ -400,6 +400,8 @@ const COMBO = 79.90;
 // Black Friday: até BF.ate a página avisa que os preços mudam em 01/12; depois disso a faixa e os avisos somem.
 const BF = { ate: new Date("2026-11-30T23:59:59-03:00") };
 const emBF = new Date() < BF.ate;
+// preço que passa a valer em 01/12 (precisa ser mudado na Kiwify nesse dia)
+const DEPOIS = { 12.90: 25.90, 14.90: 29.90, 17.90: 35.90, 19.90: 39.90 };
 
 const brl = v => "R$" + v.toFixed(2).replace(".", ",");
 const grid = document.getElementById("grid");
@@ -411,7 +413,7 @@ grid.innerHTML = NICHOS.map(n => `
       <h3>${n.nome}</h3>
       <p>${n.desc}</p>
       <div class="price">${brl(n.preco)}${emBF ? `<span class="off">BLACK FRIDAY</span>` : ""} <small>pagamento único</small></div>
-      ${emBF ? `<p class="depois">Preço de Black Friday. O preço muda a partir de 01/12.</p>` : ""}
+      ${emBF ? `<p class="depois">A partir de 01/12: <b>${brl(DEPOIS[n.preco])}</b></p>` : ""}
       <a class="pick" data-key="${n.key}" href="#">Quero este pacote</a>
     </div>
   </article>`).join("");
