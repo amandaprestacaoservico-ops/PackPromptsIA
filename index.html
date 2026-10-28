@@ -264,21 +264,21 @@ html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!i
     <div class="sec-head">
       <span class="eyebrow">Escolha o seu nicho</span>
       <h2>Pague só pelo tema que você quer</h2>
-      <p>Pagamento único, acesso imediato e vitalício. Quer todos? O combo sai por menos da metade do preço de comprar os 8 separados.</p>
+      <p>Pagamento único, acesso imediato e vitalício. Quer todos? O combo sai bem mais barato que comprar os 8 separados.</p>
     </div>
     <div class="grid" id="grid"></div>
 
     <div class="combo">
       <div class="l">
-        <span class="eyebrow">Combo completo · promoção até 27/10</span>
+        <span class="eyebrow">Combo completo</span>
         <h3>Todos os nichos em um só acesso</h3>
         <p style="color:var(--muted)">Os 8 pacotes de prompts, mais o guia de como vender ensaios com IA e a tabela de preços para cobrar dos clientes.</p>
         <div class="chips" id="chips"></div>
       </div>
       <div class="r">
         <span class="from" id="fromPrice">de R$129,20</span>
-        <span class="big">R$59,90</span>
-        <span class="save" id="save">Economia de R$69,30</span>
+        <span class="big">R$79,90</span>
+        <span class="save" id="save">Economia de R$49,30</span>
         <a class="btn" data-key="combo" href="#">Quero o combo completo</a>
       </div>
     </div>
@@ -343,7 +343,7 @@ html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!i
       <details><summary>Funciona pelo celular?</summary><p>Sim. Todo o processo foi pensado para ser feito pelo celular.</p></details>
       <details><summary>Posso vender as fotos que eu gerar?</summary><p>Pode. Você pode cobrar pelos ensaios que criar para clientes. Só não é permitido revender os prompts do pacote.</p></details>
       <details><summary>Por que o bônus só chega depois de 7 dias?</summary><p>Ele é liberado depois do prazo de garantia, como presente para quem segue com a gente. Chega sozinho na sua área de membros, sem precisar pedir.</p></details>
-      <details><summary>Posso comprar um nicho e depois o combo?</summary><p>Pode, mas sai mais barato escolher o combo de uma vez se você quer cinco temas ou mais.</p></details>
+      <details><summary>Posso comprar um nicho e depois o combo?</summary><p>Pode, mas sai mais barato escolher o combo de uma vez se você quer seis temas ou mais.</p></details>
     </div>
   </div>
 </section>
@@ -386,7 +386,7 @@ const NICHOS = [
   {key:"natal", nome:"Natal", preco:17.90, desc:"Árvore iluminada, gorro, pijama em família e clima de ceia.", g:"linear-gradient(160deg,#F3D9C4,#B8352A 60%,#1F4D36)", tag:"Mais pedido", img:"img/natal.jpg", pos:"center 80%"},
   {key:"aniversario", nome:"Aniversário", preco:19.90, desc:"Balões, bolo e cenários de festa para todas as idades.", g:"linear-gradient(160deg,#F9C5D1,#F28CA8 60%,#E8431F)", tag:"Mais vendido", img:"img/aniversario.jpg"}
 ];
-const COMBO = 59.90;
+const COMBO = 79.90;
 
 const brl = v => "R$" + v.toFixed(2).replace(".", ",");
 const grid = document.getElementById("grid");
