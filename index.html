@@ -108,6 +108,12 @@ section{padding-block:72px}
 .card h3{font-size:21px}
 .card p{font-size:14.5px;color:var(--muted);flex:1}
 .price{font-family:var(--display);font-weight:800;font-size:30px;margin-top:8px;font-variant-numeric:tabular-nums}
+.bfbar{background:#0B0B0B;color:#fff;text-align:center;padding:10px 16px;font:600 14px/1.4 var(--body)}
+.bfbar b{color:#FFC93C;letter-spacing:.04em}
+.bfbar .cd{font:700 14px var(--mono);font-variant-numeric:tabular-nums;color:#FFC93C;white-space:nowrap}
+.old{display:block;font-family:var(--body);font-size:14px;font-weight:600;color:var(--muted);text-decoration:line-through}
+.off{display:inline-block;background:#0B0B0B;color:#FFC93C;font:700 11px/1 var(--mono);letter-spacing:.06em;padding:5px 7px;border-radius:6px;margin-left:6px;vertical-align:middle}
+.depois{margin:6px 0 0;font:600 12px/1.4 var(--mono);color:var(--accent);letter-spacing:.02em}
 .price small{font-family:var(--body);font-size:14px;font-weight:600;color:var(--muted)}
 .pick{margin-top:10px;display:block;text-align:center;text-decoration:none;font-weight:700;padding:13px;border-radius:12px;background:var(--accent-soft);color:var(--ink);transition:background .15s}
 .pick:hover{background:var(--accent);color:var(--accent-ink)}
@@ -188,6 +194,8 @@ html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!i
   <symbol id="person" viewBox="0 0 100 100"><circle cx="50" cy="34" r="17"/><path d="M14 100c0-24 16-40 36-40s36 16 36 40z"/></symbol>
 </svg>
 
+<div class="bfbar" id="bfbar" hidden><b>BLACK FRIDAY ANTECIPADA</b> · os preços mudam a partir de 01/12 · termina em <span class="cd" id="cd"></span></div>
+
 <div class="wrap">
   <header class="top">
     <div class="logo"><i></i>Pack Fotos IA</div>
@@ -201,7 +209,7 @@ html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!i
       <p class="lead">Copie o prompt, cole no ChatGPT ou no Gemini com a sua foto e receba um ensaio com cara de estúdio em minutos. Use nas suas redes ou venda ensaios para clientes.</p>
       <div class="hero-cta">
         <a class="btn" href="#pacotes">Escolher meu nicho</a>
-        <span style="color:var(--muted);font-size:15px">a partir de <strong style="color:var(--ink)">R$12,90</strong></span>
+        <span style="color:var(--muted);font-size:15px">a partir de <strong style="color:var(--ink)" id="aPartir">R$12,90</strong></span>
       </div>
       <div class="trust"><span>Acesso imediato</span><span>Sem precisar saber editar</span><span>Garantia de 7 dias</span></div>
     </div>
@@ -388,6 +396,11 @@ const NICHOS = [
 ];
 const COMBO = 79.90;
 
+// Black Friday antecipada: preços valem até BF.ate; depois a página volta sozinha aos preços normais.
+// Black Friday: até BF.ate a página avisa que os preços mudam em 01/12; depois disso a faixa e os avisos somem.
+const BF = { ate: new Date("2026-11-30T23:59:59-03:00") };
+const emBF = new Date() < BF.ate;
+
 const brl = v => "R$" + v.toFixed(2).replace(".", ",");
 const grid = document.getElementById("grid");
 grid.innerHTML = NICHOS.map(n => `
@@ -397,15 +410,32 @@ grid.innerHTML = NICHOS.map(n => `
     <div class="body">
       <h3>${n.nome}</h3>
       <p>${n.desc}</p>
-      <div class="price">${brl(n.preco)} <small>pagamento único</small></div>
+      <div class="price">${brl(n.preco)}${emBF ? `<span class="off">BLACK FRIDAY</span>` : ""} <small>pagamento único</small></div>
+      ${emBF ? `<p class="depois">Preço de Black Friday. O preço muda a partir de 01/12.</p>` : ""}
       <a class="pick" data-key="${n.key}" href="#">Quero este pacote</a>
     </div>
   </article>`).join("");
 
 document.getElementById("chips").innerHTML = NICHOS.map(n => `<span>${n.nome}</span>`).join("");
 const soma = NICHOS.reduce((s, n) => s + n.preco, 0);
+const combo = COMBO;
 document.getElementById("fromPrice").textContent = "de " + brl(soma);
-document.getElementById("save").textContent = "Economia de " + brl(soma - COMBO);
+document.querySelector(".combo .big").textContent = brl(combo);
+document.getElementById("save").textContent = "Economia de " + brl(soma - combo)
+  + (emBF ? " · o preço muda a partir de 01/12" : "");
+
+document.getElementById("aPartir").textContent = brl(Math.min(...NICHOS.map(n => n.preco)));
+if (emBF) {
+  const bar = document.getElementById("bfbar"), cd = document.getElementById("cd");
+  bar.hidden = false;
+  const tick = () => {
+    const ms = BF.ate - new Date();
+    if (ms <= 0) { location.reload(); return; }
+    const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60, sec = Math.floor(ms / 1e3) % 60;
+    cd.textContent = `${d}d ${String(h).padStart(2, "0")}h ${String(m).padStart(2, "0")}m ${String(sec).padStart(2, "0")}s`;
+  };
+  tick(); setInterval(tick, 1000);
+}
 
 const toast = document.getElementById("toast");
 let t;
