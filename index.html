@@ -215,7 +215,7 @@ html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!i
       <p class="lead">Copie o prompt, cole no ChatGPT ou no Gemini com a sua foto e receba um ensaio com cara de estúdio em minutos. Use nas suas redes ou venda ensaios para clientes.</p>
       <div class="hero-cta">
         <a class="btn" href="#pacotes">Escolher meu nicho</a>
-        <span style="color:var(--muted);font-size:15px">a partir de <strong style="color:var(--ink)" id="aPartir">R$12,90</strong></span>
+        <span style="color:var(--muted);font-size:15px">a partir de <strong style="color:var(--ink)" id="aPartir">R$5,90</strong></span>
       </div>
       <div class="trust"><span>Acesso imediato</span><span>Sem precisar saber editar</span><span>Garantia de 7 dias</span></div>
     </div>
@@ -290,9 +290,9 @@ html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!i
         <div class="chips" id="chips"></div>
       </div>
       <div class="r">
-        <span class="from" id="fromPrice">de R$129,20</span>
-        <span class="big">R$79,90</span>
-        <span class="save" id="save">Economia de R$49,30</span>
+        <span class="from" id="fromPrice">de R$59,20</span>
+        <span class="big">R$29,90</span>
+        <span class="save" id="save">Economia de R$29,30</span>
         <a class="btn" data-key="combo" href="#">Quero o combo completo</a>
       </div>
     </div>
@@ -391,23 +391,23 @@ const CHECKOUT = {
 };
 
 const NICHOS = [
-  {key:"casal", nome:"Casal e Namorados", preco:12.90, desc:"Ensaios românticos, pré-wedding e Dia dos Namorados.", g:"linear-gradient(160deg,#F6D3C8,#E07A6A 60%,#7A2E3A)", img:"img/casal.jpg"},
-  {key:"infantil", nome:"Infantil e Smash the Cake", preco:12.90, desc:"Mesversário, smash the cake e temas de desenho.", g:"linear-gradient(160deg,#CFE8F6,#8EC5E8 60%,#F4B860)", img:"img/infantil.jpg"},
-  {key:"gestante", nome:"Gestante", preco:14.90, desc:"Ensaios delicados de gravidez, com tons suaves e natureza.", g:"linear-gradient(160deg,#F3E7DA,#E3C3B0 60%,#B98A7A)", img:"img/gestante.jpg"},
-  {key:"formatura", nome:"Formatura", preco:14.90, desc:"Beca, capelo e retratos de conquista com fundo de estúdio.", g:"linear-gradient(160deg,#1E2A44,#3B5B8C 60%,#C9A55A)", img:"img/formatura.jpg"},
-  {key:"profissional", nome:"Profissional e LinkedIn", preco:17.90, desc:"Foto de perfil corporativa, terno, blazer e escritório.", g:"linear-gradient(160deg,#E4E6EA,#9AA3B0 60%,#2E3A4A)", img:"img/profissional.jpg"},
-  {key:"casamento", nome:"Casamento", preco:17.90, desc:"Noiva, noivo, vestido e cenários de cerimônia.", g:"linear-gradient(160deg,#FBF6EE,#E8DCC8 60%,#B9A27A)", img:"img/casamento.jpg", pos:"center 35%"},
-  {key:"natal", nome:"Natal", preco:17.90, desc:"Árvore iluminada, gorro, pijama em família e clima de ceia.", g:"linear-gradient(160deg,#F3D9C4,#B8352A 60%,#1F4D36)", tag:"Mais pedido", img:"img/natal.jpg", pos:"center 60%"},
-  {key:"aniversario", nome:"Aniversário", preco:19.90, desc:"Balões, bolo e cenários de festa para todas as idades.", g:"linear-gradient(160deg,#F9C5D1,#F28CA8 60%,#E8431F)", tag:"Mais vendido", img:"img/aniversario.jpg"}
+  {key:"casal", nome:"Casal e Namorados", preco:5.90, desc:"Ensaios românticos, pré-wedding e Dia dos Namorados.", g:"linear-gradient(160deg,#F6D3C8,#E07A6A 60%,#7A2E3A)", img:"img/casal.jpg"},
+  {key:"infantil", nome:"Infantil e Smash the Cake", preco:5.90, desc:"Mesversário, smash the cake e temas de desenho.", g:"linear-gradient(160deg,#CFE8F6,#8EC5E8 60%,#F4B860)", img:"img/infantil.jpg"},
+  {key:"gestante", nome:"Gestante", preco:6.90, desc:"Ensaios delicados de gravidez, com tons suaves e natureza.", g:"linear-gradient(160deg,#F3E7DA,#E3C3B0 60%,#B98A7A)", img:"img/gestante.jpg"},
+  {key:"formatura", nome:"Formatura", preco:6.90, desc:"Beca, capelo e retratos de conquista com fundo de estúdio.", g:"linear-gradient(160deg,#1E2A44,#3B5B8C 60%,#C9A55A)", img:"img/formatura.jpg"},
+  {key:"profissional", nome:"Profissional e LinkedIn", preco:7.90, desc:"Foto de perfil corporativa, terno, blazer e escritório.", g:"linear-gradient(160deg,#E4E6EA,#9AA3B0 60%,#2E3A4A)", img:"img/profissional.jpg"},
+  {key:"casamento", nome:"Casamento", preco:7.90, desc:"Noiva, noivo, vestido e cenários de cerimônia.", g:"linear-gradient(160deg,#FBF6EE,#E8DCC8 60%,#B9A27A)", img:"img/casamento.jpg", pos:"center 35%"},
+  {key:"natal", nome:"Natal", preco:7.90, desc:"Árvore iluminada, gorro, pijama em família e clima de ceia.", g:"linear-gradient(160deg,#F3D9C4,#B8352A 60%,#1F4D36)", tag:"Mais pedido", img:"img/natal.jpg", pos:"center 60%"},
+  {key:"aniversario", nome:"Aniversário", preco:9.90, desc:"Balões, bolo e cenários de festa para todas as idades.", g:"linear-gradient(160deg,#F9C5D1,#F28CA8 60%,#E8431F)", tag:"Mais vendido", img:"img/aniversario.jpg"}
 ];
-const COMBO = 79.90;
+const COMBO = 29.90;
 
 // Black Friday antecipada: preços valem até BF.ate; depois a página volta sozinha aos preços normais.
 // Black Friday: até BF.ate a página avisa que os preços mudam em 01/12; depois disso a faixa e os avisos somem.
 const BF = { ate: new Date("2026-11-30T23:59:59-03:00") };
 const emBF = new Date() < BF.ate;
 // preço que passa a valer em 01/12 (precisa ser mudado na Kiwify nesse dia)
-const DEPOIS = { 12.90: 25.90, 14.90: 29.90, 17.90: 35.90, 19.90: 39.90 };
+const DEPOIS = { 5.90: 11.90, 6.90: 13.90, 7.90: 15.90, 9.90: 19.90 };
 
 const brl = v => "R$" + v.toFixed(2).replace(".", ",");
 const grid = document.getElementById("grid");
